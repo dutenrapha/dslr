@@ -1,5 +1,6 @@
 import csv
-from utils import all_numeric, convert_to_numbers, calculate_percentile, calculate_standard_deviation
+from utils import all_numeric, convert_to_numbers, print_formatted_table
+from math import calculate_percentile, calculate_standard_deviation
 
 OPERATIONS = ["Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max"]
 
@@ -37,7 +38,7 @@ class my_data_frame:
         except Exception as e:
             result['Error'] = f"An error occurred: {e}"
         return result
-
+    
     def my_describe(self):
         result = {}
         for column in self.columns:
@@ -49,11 +50,9 @@ class my_data_frame:
                         column_data[operation] = value
                 result[column] = column_data
 
-        for column, metrics in result.items():
-            print(f"Column: {column}")
-            for metric, value in metrics.items():
-                print(f"{metric}: {value:.2f}")
-        return(result)
+        print_formatted_table(result, OPERATIONS)
+
+        return result
 
     def calculate_metric(self, column, operation):
         if column in self.data:
