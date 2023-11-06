@@ -7,6 +7,6 @@ def main():
         return
     file_name = sys.argv[1]
     df = mdf(file_name)
-    print(df.my_describe())
+    df.my_describe()
 if __name__ == "__main__":
     main()

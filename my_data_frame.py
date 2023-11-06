@@ -1,5 +1,7 @@
 import csv
-from utils import all_numeric, convert_to_numbers
+from utils import all_numeric, convert_to_numbers, calculate_percentile, calculate_standard_deviation
+
+OPERATIONS = ["Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max"]
 
 class my_data_frame:
 
@@ -37,14 +39,45 @@ class my_data_frame:
         return result
 
     def my_describe(self):
-        resp = []
+        result = {}
         for column in self.columns:
-            resp.append(self.my_count(column))
-        return(resp)
-  
-    def my_count(self, column):
+            if all_numeric(self.data[column]):
+                column_data = {}
+                for operation in OPERATIONS:
+                    value = self.calculate_metric(column, operation)
+                    if value is not None:
+                        column_data[operation] = value
+                result[column] = column_data
+
+        for column, metrics in result.items():
+            print(f"Column: {column}")
+            for metric, value in metrics.items():
+                print(f"{metric}: {value:.2f}")
+        return(result)
+
+    def calculate_metric(self, column, operation):
         if column in self.data:
-            count = sum(1 for item in self.data[column] if item is not None)
-            return count
+            values = [float(item) for item in self.data[column] if item is not None]
+            if values:
+                if operation == "Count":
+                    return len(values)
+                if operation == "Mean":
+                    return sum(values) / len(values)
+                elif operation == "Std":
+                    return calculate_standard_deviation(values)
+                elif operation == "Min":
+                    return min(values)
+                elif operation == "25%":
+                    return calculate_percentile(values, 25)
+                elif operation == "50%":
+                    return calculate_percentile(values, 50)
+                elif operation == "75%":
+                    return calculate_percentile(values, 75)
+                elif operation == "Max":
+                    return max(values)
+                else:
+                    return None 
+            else:
+                return None
         else:
-            return 0
+            return None
