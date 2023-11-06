@@ -28,7 +28,10 @@ class my_data_frame:
                     data[column] = []
                 for row in csv_reader:
                     for idx, column in enumerate(columns):
-                        data[column].append(row[idx])
+                        if row[idx] != "":
+                            data[column].append(row[idx])
+                        else:
+                            data[column].append(None)
                 for column in columns:
                     data[column] = convert_to_numbers(data[column])
                 result['Data'] = data
@@ -67,11 +70,11 @@ class my_data_frame:
                 elif operation == "Min":
                     return min(values)
                 elif operation == "25%":
-                    return calculate_percentile(values, 25)
+                    return calculate_percentile(values, 0.25)
                 elif operation == "50%":
-                    return calculate_percentile(values, 50)
+                    return calculate_percentile(values, 0.50)
                 elif operation == "75%":
-                    return calculate_percentile(values, 75)
+                    return calculate_percentile(values, 0.75)
                 elif operation == "Max":
                     return max(values)
                 else:

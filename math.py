@@ -1,11 +1,21 @@
 
-def calculate_percentile(values, percentile):
-        if values:
-            sorted_values = sorted(values)
-            index = int((percentile / 100) * len(sorted_values))
-            return sorted_values[index]
+def calculate_percentile(data, percentile):
+    if data:
+        data.sort()
+        index = percentile * (len(data) - 1)
+        if isinstance(index, (int)):
+            print(index)
+            return data[int(index)]
         else:
-            return None
+            lower_index = int(index // 1)
+            upper_index = lower_index + 1
+            lower_value = data[lower_index]
+            upper_value = data[upper_index]
+            fraction = index - lower_index
+            return lower_value + fraction * (upper_value - lower_value)
+    else:
+        return None
+
 
 def calculate_standard_deviation(values):
     n = len(values)
