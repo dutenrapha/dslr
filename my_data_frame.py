@@ -1,6 +1,6 @@
 import csv
 from utils import all_numeric, convert_to_numbers, print_formatted_table
-from math import calculate_percentile, calculate_standard_deviation
+from my_math import calculate_percentile, calculate_standard_deviation
 
 OPERATIONS = ["Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max"]
 
