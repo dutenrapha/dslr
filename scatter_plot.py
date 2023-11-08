@@ -26,6 +26,9 @@ def main():
         if i == len(pairs) - 1:
             for j in range(fig_index, graphs_per_figure):
                 ax_flat[j].remove()
+    for fig_num, fig in enumerate(figures):
+        fig.tight_layout()
+        fig.savefig(f"scatter_plot_{fig_num}.png") 
     for fig in figures:
         fig.tight_layout()
     plt.show()
