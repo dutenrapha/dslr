@@ -1,5 +1,5 @@
 import sys
-from my_data_frame import my_data_frame as mdf
+from my_data_frame_dslr import my_data_frame_dslr as mdf
 
 def main():
     if len(sys.argv) != 2:
