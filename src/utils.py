@@ -1,3 +1,6 @@
+import csv
+import numpy as np
+
 def all_numeric(lst):
     for item in lst:
         if item != None:
@@ -46,3 +49,18 @@ def string_lst_2_categ(string_lst, categ):
         else:
             categ_lst.append(0)
     return(categ_lst)
+
+def predict_house(temp, HOUSES):
+    max_indices = np.argmax(temp, axis=0)
+    predicted_houses = [HOUSES[i] for i in max_indices]
+    return predicted_houses
+
+
+def save_predicted_houses_csv(predicted_houses):
+    data = list(enumerate(predicted_houses))
+    with open('houses.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Index', 'Hogwarts House'])
+        writer.writerows(data)
+
+

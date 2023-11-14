@@ -6,7 +6,7 @@ from utils import string_lst_2_categ
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python train.py dataset_train.csv")
+        print("Usage: python logreg_train.py dataset_train.csv")
         return
     file_name = sys.argv[1]
     df = mdf(file_name)

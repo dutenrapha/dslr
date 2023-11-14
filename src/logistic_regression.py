@@ -3,6 +3,7 @@ import csv
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
 
 class logistic_regression:
   def __init__(self, model_name, epochs = 1000, lr = 0.01, test_ratio = 0.2) -> None:
@@ -43,6 +44,10 @@ class logistic_regression:
       gradient = (np.dot(self.x_train.T, (g - self.y_train)) / m).reshape(-1, 1) 
       self.theta -= self.lr * gradient
       self.loss_history.append((epoch, self.calculate_loss()))
+    y_pred = self.predict(self.x_test)
+    # print(self.y_test)
+    acc = accuracy_score(self.y_test, y_pred)
+    print(f"Model {self.model_name} achieved an accuracy of {acc} with a test ratio of {self.test_ratio}.")
     self.plot_loss()
     self.save('params.csv')
 
@@ -99,3 +104,16 @@ class logistic_regression:
           return
 
     print(f"Model '{self.model_name}' not found in {filename}. Initializing with default values.")
+
+  def predict_prob(self, x):
+    x_normalized = (x - self.min_x) / (self.max_x - self.min_x)
+    z = np.dot(x_normalized, self.theta)
+    g = 1 / (1 + np.exp(-z))
+    return g
+  
+  def predict(self, x):
+    x_normalized = (x - self.min_x) / (self.max_x - self.min_x)
+    z = np.dot(x_normalized, self.theta)
+    g = 1 / (1 + np.exp(-z))
+    predictions = (g >= 0.5).astype(int)
+    return predictions
