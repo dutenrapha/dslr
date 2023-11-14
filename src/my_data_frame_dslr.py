@@ -1,4 +1,5 @@
 import csv
+import numpy as np
 from utils import all_numeric, print_formatted_table
 from my_math import calculate_percentile, calculate_standard_deviation
 from my_data_frame import my_data_frame 
@@ -48,3 +49,10 @@ class my_data_frame_dslr(my_data_frame):
                 return None
         else:
             return None
+
+    def col_2_array(self, columns):
+        X = []
+        for column in columns:
+            if column in self.columns:
+                X.append(self.data[column])
+        return np.array(X).T

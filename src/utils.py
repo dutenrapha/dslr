@@ -37,3 +37,12 @@ def print_formatted_table(result, OPERATIONS):
             value = result[column].get(operation, "")
             row += "\t{:<8.2f}".format(value) if value != "" else "\t"
         print(row)
+
+def string_lst_2_categ(string_lst, categ):
+    categ_lst = []
+    for string in string_lst:
+        if string == categ:
+            categ_lst.append(1)
+        else:
+            categ_lst.append(0)
+    return(categ_lst)

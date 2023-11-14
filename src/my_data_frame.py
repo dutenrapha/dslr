@@ -11,7 +11,7 @@ class my_data_frame:
         else:
             self.columns = result['Columns']
             self.data = result['Data']
-  
+
     def csv_read(self, file_name):
         result = {}
 
@@ -38,3 +38,16 @@ class my_data_frame:
         except Exception as e:
             result['Error'] = f"An error occurred: {e}"
         return result
+
+    def fillna_mean(self):
+        column_means = {}
+        for column in self.columns:
+            numeric_values = [value for value in self.data[column] if isinstance(value, (int, float))]
+            if numeric_values:
+                column_means[column] = sum(numeric_values) / len(numeric_values)
+
+        for column in self.columns:
+            for idx, value in enumerate(self.data[column]):
+                if value is None or value == "":
+                    if column in column_means:
+                        self.data[column][idx] = column_means[column]

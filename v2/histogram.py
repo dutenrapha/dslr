@@ -1,6 +1,6 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
-from my_data_frame_dslr import my_data_frame_dslr as mdf
+from src.my_data_frame_dslr import my_data_frame_dslr as mdf
 
 def main():
     df = mdf("dataset/dataset_train.csv")
