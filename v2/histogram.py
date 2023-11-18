@@ -1,9 +1,9 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
-from src.my_data_frame_dslr import my_data_frame_dslr as mdf
+from my_data_frame_dslr import my_data_frame_dslr as mdf
 
 def main():
-    df = mdf("dataset/dataset_train.csv")
+    df = mdf("../dataset/dataset_train.csv")
 
     courses = ['Arithmancy', 'Astronomy', 'Herbology', 'Defense Against the Dark Arts', 'Divination', 'Muggle Studies', 'Ancient Runes', 'History of Magic', 'Transfiguration', 'Potions', 'Care of Magical Creatures', 'Charms', 'Flying']
 
@@ -38,7 +38,7 @@ def main():
             axes[row, col].legend(title='House')
 
     plt.tight_layout()
-
+    fig.savefig(f"charts/histogram.png") 
     plt.show()
 
 if __name__ == "__main__":
