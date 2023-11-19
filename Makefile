@@ -1,4 +1,5 @@
 init:
+	pip install -r requirements.txt
 	@mkdir -p v2/charts
 
 test-1:
