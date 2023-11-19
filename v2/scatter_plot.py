@@ -28,7 +28,7 @@ def main():
                 ax_flat[j].remove()
     for fig_num, fig in enumerate(figures):
         fig.tight_layout()
-        fig.savefig(f"scatter_plot_{fig_num}.png") 
+        fig.savefig(f"v2/charts/scatter_plot_{fig_num}.png") 
     for fig in figures:
         fig.tight_layout()
     plt.show()

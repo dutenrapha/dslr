@@ -28,7 +28,7 @@ def main():
     plt.tight_layout()
 
     # Show the plot
-    plt.savefig('pair_plot2.png', bbox_inches='tight')
+    plt.savefig('v2/charts/pair_plot2.png', bbox_inches='tight')
     plt.show()
 
 if __name__ == "__main__":

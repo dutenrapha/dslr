@@ -32,7 +32,8 @@ def main():
 
     for fig_num, fig in enumerate(figures):
         fig.tight_layout()
-        fig.savefig(f"pair_plot1_{fig_num}.png") 
+        fig.savefig(f"v2/charts/pair_plot1_{fig_num}.png")
+
     for fig in figures:
         fig.tight_layout()
     plt.show()

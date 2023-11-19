@@ -46,10 +46,6 @@ class logistic_regression:
           self.stochastic_gradient_descent()
       else:
           raise ValueError("Invalid optimization_algorithm")
-
-      y_pred = self.predict(self.x_test)
-      acc = accuracy_score(self.y_test, y_pred)
-      print(f"Model {self.model_name} achieved an accuracy of {acc} with a test ratio of {self.test_ratio}.")
       self.plot_loss()
       self.save('params.csv')
 
