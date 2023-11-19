@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from my_data_frame_dslr import my_data_frame_dslr as mdf
 
 def main():
-    # Load your custom data structure
     df = mdf("dataset/dataset_train.csv")
 
     # Convert the dictionary data to a pandas DataFrame

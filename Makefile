@@ -18,10 +18,16 @@ test-5:
 	python3 v2/pair_plot1.py dataset/dataset_train.csv
 
 test-6:
-	rm -rf thetas.csv
 	rm -rf params.csv
 	rm -rf houses.csv
 	python3 v3/logreg_train.py dataset/dataset_train.csv
+	python3 v3/logreg_predict.py dataset/dataset_test.csv 
+	python3 evaluate.py houses.csv dataset/dataset_truth.csv
+
+test-7:
+	rm -rf params.csv
+	rm -rf houses.csv
+	python3 v3/logreg_train_sgd.py dataset/dataset_train.csv
 	python3 v3/logreg_predict.py dataset/dataset_test.csv 
 	python3 evaluate.py houses.csv dataset/dataset_truth.csv
 

@@ -24,5 +24,6 @@ def main():
     temp = np.array(temp)
     predicted_houses = predict_house(temp, HOUSES)
     save_predicted_houses_csv(predicted_houses)
+    
 if __name__ == "__main__":
     main()
