@@ -1,7 +1,7 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 from itertools import combinations
-from src.my_data_frame_dslr import my_data_frame_dslr as mdf
+from my_data_frame_dslr import my_data_frame_dslr as mdf
 
 def main():
     df = mdf("dataset/dataset_train.csv")

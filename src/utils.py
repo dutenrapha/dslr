@@ -62,5 +62,11 @@ def save_predicted_houses_csv(predicted_houses):
         writer = csv.writer(file)
         writer.writerow(['Index', 'Hogwarts House'])
         writer.writerows(data)
-
+def calculate_age_from_dates(date_list, current_year):
+    ages = []
+    for date_str in date_list:
+        year = int(date_str[:4])
+        age = current_year - year
+        ages.append(age)
+    return ages
 

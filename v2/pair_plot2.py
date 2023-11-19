@@ -1,7 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from src.my_data_frame_dslr import my_data_frame_dslr as mdf
+from my_data_frame_dslr import my_data_frame_dslr as mdf
 
 def main():
     # Load your custom data structure

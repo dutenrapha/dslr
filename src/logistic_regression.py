@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 
 class logistic_regression:
-  def __init__(self, model_name, epochs = 1000, lr = 0.01, test_ratio = 0.2) -> None:
+  def __init__(self, model_name, epochs = 2000, lr = 0.01, test_ratio = 0.2) -> None:
     self.model_name = model_name
     self.epochs = epochs
     self.lr = lr
@@ -45,7 +45,6 @@ class logistic_regression:
       self.theta -= self.lr * gradient
       self.loss_history.append((epoch, self.calculate_loss()))
     y_pred = self.predict(self.x_test)
-    # print(self.y_test)
     acc = accuracy_score(self.y_test, y_pred)
     print(f"Model {self.model_name} achieved an accuracy of {acc} with a test ratio of {self.test_ratio}.")
     self.plot_loss()
