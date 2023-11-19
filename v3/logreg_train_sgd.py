@@ -21,7 +21,7 @@ def main():
     for house in [ 'Slytherin', 'Gryffindor', 'Ravenclaw', 'Hufflepuff']:
         y = np.array(string_lst_2_categ(df.data['Hogwarts House'], house)).reshape(-1,1)
         X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
-        model = logistic_regression(model_name = house)
+        model = logistic_regression(model_name = house, epochs=1000, optimization_algorithm="stochastic_gradient_descent"  )
         model.train(X_train,y_train)
         y_pred = model.predict(X_test)
         acc = accuracy_score(y_test, y_pred)

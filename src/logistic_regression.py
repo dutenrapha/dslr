@@ -6,11 +6,13 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 
 class logistic_regression:
-  def __init__(self, model_name, epochs = 2000, lr = 0.01, test_ratio = 0.2) -> None:
+  def __init__(self, model_name, epochs = 2000, lr = 0.01, test_ratio = 0.2,  optimization_algorithm="gradient_descent", batch_size = 32) -> None:
     self.model_name = model_name
     self.epochs = epochs
     self.lr = lr
     self.test_ratio = test_ratio
+    self.optimization_algorithm = optimization_algorithm
+    self.batch_size = batch_size
     self.load('params.csv')
     self.loss_history = []
   
@@ -32,23 +34,53 @@ class logistic_regression:
       return x_normalized
 
   def train(self, x, y):
-    self.theta = np.zeros(len(x[0]))
-    x = self.standardize(x,y)
-    self.split_train_test(x, y)
-    m, n = len(self.x_train), len(self.x_train[0])
-    self.theta = np.zeros(n).reshape(-1, 1) 
-    for epoch in range(self.epochs):
-      z = np.dot(self.x_train, self.theta)
-      g = 1 / (1 + np.exp(-z))
-      g = g.reshape(-1, 1)  
-      gradient = (np.dot(self.x_train.T, (g - self.y_train)) / m).reshape(-1, 1) 
-      self.theta -= self.lr * gradient
-      self.loss_history.append((epoch, self.calculate_loss()))
-    y_pred = self.predict(self.x_test)
-    acc = accuracy_score(self.y_test, y_pred)
-    print(f"Model {self.model_name} achieved an accuracy of {acc} with a test ratio of {self.test_ratio}.")
-    self.plot_loss()
-    self.save('params.csv')
+      self.theta = np.zeros(len(x[0]))
+      x = self.standardize(x, y)
+      self.split_train_test(x, y)
+      m, n = len(self.x_train), len(self.x_train[0])
+      self.theta = np.zeros(n).reshape(-1, 1)
+
+      if self.optimization_algorithm == "gradient_descent":
+          self.gradient_descent()
+      elif self.optimization_algorithm == "stochastic_gradient_descent":
+          self.stochastic_gradient_descent()
+      else:
+          raise ValueError("Invalid optimization_algorithm")
+
+      y_pred = self.predict(self.x_test)
+      acc = accuracy_score(self.y_test, y_pred)
+      print(f"Model {self.model_name} achieved an accuracy of {acc} with a test ratio of {self.test_ratio}.")
+      self.plot_loss()
+      self.save('params.csv')
+
+  def gradient_descent(self):
+      for epoch in range(self.epochs):
+          z = np.dot(self.x_train, self.theta)
+          g = 1 / (1 + np.exp(-z))
+          g = g.reshape(-1, 1)
+          gradient = (np.dot(self.x_train.T, (g - self.y_train)) / len(self.x_train)).reshape(-1, 1)
+          self.theta -= self.lr * gradient
+          self.loss_history.append((epoch, self.calculate_loss()))
+
+  def stochastic_gradient_descent(self):
+      for epoch in range(self.epochs):
+          combined = list(zip(self.x_train, self.y_train))
+          random.shuffle(combined)
+          shuffled_x, shuffled_y = zip(*combined)
+          for i in range(0, len(shuffled_x), self.batch_size):
+              batch_x = shuffled_x[i:i + self.batch_size]
+              batch_y = shuffled_y[i:i + self.batch_size]
+              gradient = np.zeros_like(self.theta)
+              for j in range(len(batch_x)):
+                  x_i = batch_x[j]
+                  y_i = batch_y[j]
+                  z_i = np.dot(x_i, self.theta)
+                  g_i = 1 / (1 + np.exp(-z_i))
+                  gradient += (x_i * (g_i - y_i)).reshape(-1, 1)
+              gradient /= len(batch_x)
+              self.theta -= self.lr * gradient
+          self.loss_history.append((epoch, self.calculate_loss()))
+
 
   def calculate_loss(self):
     z = np.dot(self.x_train, self.theta)
