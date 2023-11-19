@@ -91,7 +91,10 @@ class logistic_regression:
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
     plt.title("Loss vs. Epoch")
-    plt.show()
+    #plt.show()
+    plt.show(block=False)
+    plt.pause(int(1))
+    plt.close()
   
   def save(self, filename):
     with open(filename, mode='a', newline='') as file:
